@@ -49,27 +49,17 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<Object> {
             if (o instanceof HttpContent) {
                 bodyBuilder.append(((HttpContent) o).content().toString(Charsets.UTF_8));
                 if (o instanceof LastHttpContent) {
-                    HttpResponse response = getResponse(channelHandlerContext, request);
-                    final boolean dontKeepAlive = disobeyKeepAlive();
-                    if (dontKeepAlive) {
-                        response.headers().set("Connection", "close");
-                    }
                     ChannelFuture future = channelHandlerContext.channel().writeAndFlush(getResponse(channelHandlerContext, request));
                     future.addListener(new ChannelFutureListener() {
                         @Override
                         public void operationComplete(ChannelFuture future1) throws Exception {
                             bodyBuilder.delete(0, bodyBuilder.length());
-                            if (dontKeepAlive)
-                                future1.channel().close();
+                            future1.channel().close();
                         }
                     });
                 }
             }
         }
-    }
-
-    private boolean disobeyKeepAlive() {
-        return request.headers().entries().size() == 1 && request.headers().contains("Host");
     }
 
     private HttpResponse getResponse(ChannelHandlerContext channelHandlerContext, HttpRequest hr) {

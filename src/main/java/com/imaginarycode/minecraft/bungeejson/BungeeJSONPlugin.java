@@ -91,6 +91,7 @@ public class BungeeJSONPlugin extends Plugin {
         requestManager.registerEndpoint("/bungeecord/players_online", new PlayersOnline());
         requestManager.registerEndpoint("/bungeecord/send_message", new SendMessage());
         requestManager.registerEndpoint("/bungeecord/broadcast_message", new BroadcastMessage());
+        requestManager.registerEndpoint("/bungeecord/telegram_message", new TelegramMessage());
         requestManager.registerEndpoint("/bungeecord/server_list", new ServerList());
         requestManager.registerEndpoint("/bungeejson/version", new Version());
         requestManager.registerEndpoint("/bungeejson/is_authenticated", new IsAuthenticated());
