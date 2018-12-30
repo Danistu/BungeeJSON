@@ -38,7 +38,7 @@ public class TelegramMessage implements RequestHandler {
                 out.writeUTF(request.getParams().get("message").get(0));
 
                 for(ServerInfo server : ProxyServer.getInstance().getServers().values()) {
-                    server.sendData("MeriCore", out.toByteArray());
+                    server.sendData("mericore:bungeejson", out.toByteArray());
                 }
 
                 return BungeeJSONUtilities.ok();

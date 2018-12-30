@@ -34,8 +34,8 @@ public class SendCommand implements RequestHandler {
             out.writeUTF("Command");
             out.writeUTF(request.getParams().get("command").get(0));
 
-            for(ServerInfo server : ProxyServer.getInstance().getServers().values()) {
-                server.sendData("MeriCore", out.toByteArray());
+            for (ServerInfo server : ProxyServer.getInstance().getServers().values()) {
+                server.sendData("mericore:bungeejson", out.toByteArray());
             }
 
             return BungeeJSONUtilities.ok();
